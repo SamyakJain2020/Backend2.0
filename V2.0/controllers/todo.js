@@ -20,9 +20,7 @@ exports.create = async (req, res) => {
       });
     } catch (err) {
       console.log(`Error while storing to db, ${err}`);
-      return res.status(500).send({
-        err,
-      });
+      return res.status(500).render("error",{err});
     }
   };
   exports.view = async (req, res) => {
@@ -31,9 +29,7 @@ exports.create = async (req, res) => {
       return res.status(200).json(todos);
     } catch (err) {
       console.log(`Error while storing to db, ${err}`);
-      return res.status(500).send({
-        err,
-      });
+      return res.status(500).render("error",{err});
     }
   };
   

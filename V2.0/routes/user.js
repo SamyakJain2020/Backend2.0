@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { signin, signout, signup, getUserInfo,deleteUser } = require("../controllers/user");
 
-
-
-
 // router.get((req,res)=>{
 //     res.send("ok");
 // })

@@ -7,9 +7,9 @@ router.get((req,res)=>{
 })
 
 //middlewares
-const { isSignedIn, isAuthenticated} = require("../middleware/auth");
+const { isSignedIn} = require("../middleware/auth");
 
-router.use(...isSignedIn());//isAuthenticated
+router.use(...isSignedIn());
 
 router.post("/todo/create", create);
 // router.post("/todo/completed", completed);

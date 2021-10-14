@@ -20,16 +20,20 @@ app.use(express.json());
 
 app.use('/api', user);
 app.use('/api', todo);
+
 app.set('view engine','ejs');
-app.get("/user/signup", (req,res,next)=>{
-  res.render("register");
+
+app.get("/", (req,res,next)=>{
+  res.render("register",{message:""});
 });
+
 app.get("/user/signin",  (req,res,next)=>{
   res.render("login");
 });
 
+app.get("/user/dashboard",)
 app.listen(PORT, () => {
     console.log(`Listening at PORT:${PORT}`);
-    sequelize.authenticate(); //sync({force:true});
+    sequelize.authenticate();
     console.log("DB Connected");
   });

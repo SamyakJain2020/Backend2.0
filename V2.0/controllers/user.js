@@ -21,15 +21,10 @@ exports.signup = async (req, res) => {
         email,
         password,
       });
-      return res.status(200).json({
-        message: "User stored successfully",
-        user: user,
-      }).render("login") ;
+      return res.status(200).render("login") ;
     } catch (err) {
       console.log(`Error while storing to db, ${err}`);
-      return res.status(500).render({
-        err,
-      });
+      return res.status(500).render("error",{err});
     }
   } else {
     res.status(401).render("register",{message:"INITAIAL CHECKS FAILED"});
@@ -42,7 +37,7 @@ exports.getUserInfo = async (req, res) => {
     res.status(200).json(users);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err: "something went wrong" });
+    res.status(500).render("error",{err});
   }
 };
 
@@ -59,20 +54,16 @@ exports.signin = async (req, res) => {
         expiresIn: 30 * 60,
         algorithm: "HS256",
       });
+      console.assert(token)
       res.cookie("token", token);
+      return res.status(202).render("Dashboard",{user:user.name});
 
-      return res.status(202).send({
-        message: "User signed in successfully",
-        token,
-      });
     } else {
-      return res.status(401).send({
-        message: "unauthorized",
-      });
+      return res.status(401).render("unauthrised");
     }
   } catch (err) {
     console.log(`Error while finding in DB ${err}`);
-    res.status(500).json({ err: "something went wrong" });
+    res.status(500).render("error",{err});
 
   }
 };

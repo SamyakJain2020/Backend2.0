@@ -9,9 +9,7 @@ exports.isSignedIn = () => {
         })
         ,function(err, req, res, next) {
             if(err) {
-                return res.status(402).send({
-                    message: 'Unauthorized'               
-                });
+                return res.status(402).render("unauthrised");
             }
             next();
         }
@@ -27,7 +25,7 @@ exports.isAuthenticated = async (req, res, next) => {
                 next();
             }
         } catch(err) {
-            console.log(`Error occured ${err.name}`);
+            console.log(`User not found : ${err.name}`);
         }
     }
 };
