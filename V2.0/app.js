@@ -20,6 +20,13 @@ app.use(express.json());
 
 app.use('/api', user);
 app.use('/api', todo);
+app.set('view engine','ejs');
+app.get("/user/signup", (req,res,next)=>{
+  res.render("register");
+});
+app.get("/user/signin",  (req,res,next)=>{
+  res.render("login");
+});
 
 app.listen(PORT, () => {
     console.log(`Listening at PORT:${PORT}`);

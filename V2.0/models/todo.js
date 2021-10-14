@@ -12,9 +12,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({User}) {
       // define association here
-      this.belongsTo(User,{
-        foreignKey:'_uid'
-      });
+      // this.belongsTo(User,{
+      //   foreignKey:'_uid'
+      // });
+    }
+    toJSON() {
+      return { ...this.get(), _uid: undefined, _Tid: undefined };
     }
   };
   Todo.init({
@@ -33,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     _uid:{
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     }
   }, {

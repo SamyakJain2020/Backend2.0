@@ -14,9 +14,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({Todo}) {
       // define association here
-        this.hasMany(Todo,{
-          foreignKey:'_uid'
-        });
+        // this.hasMany(Todo,{
+        //   foreignKey:'_uid'
+        // });
+    }
+    toJSON() {
+      return { ...this.get(), id: undefined };
     }
   };
   User.init({
@@ -25,6 +28,12 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
+    },
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      // primaryKey: true,
+      type: DataTypes.INTEGER,
     },
     name: {
       type: DataTypes.STRING,
