@@ -54,9 +54,11 @@ exports.signin = async (req, res) => {
         expiresIn: 30 * 60,
         algorithm: "HS256",
       });
-      console.assert(token)
+      console.assert(token);
       res.cookie("token", token);
-      return res.status(202).render("Dashboard",{user:user.name});
+      res.cookie("uid", user._uid);
+      req.headers['someHeader'] = 'someValue';
+      return res.status(202).render("Dashboard",{user:user.name,uid:user._uid,todos:null});
 
     } else {
       return res.status(401).render("unauthrised");

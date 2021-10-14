@@ -24,9 +24,16 @@ exports.create = async (req, res) => {
     }
   };
   exports.view = async (req, res) => {
+    const userId=req.params.uid
+    const user = await User.findOne({ where: { _uid:userId } });
+
    try {
-      const todos = await Todo.findAll({include:User});
-      return res.status(200).json(todos);
+      const todos = await Todo.findAll({where: {
+         _uid:userId
+      }});
+      // console.log();
+      // req.uid=user.uid;
+      return res.status(200).json(todos) //render('Dashboard',{user:user.name,uid:user.uid,todos:todos});
     } catch (err) {
       console.log(`Error while storing to db, ${err}`);
       return res.status(500).render("error",{err});

@@ -17,7 +17,7 @@ router.post("/todo/create", create);
 
 // router.put("/todo/update/:id", update);
 
-router.get("/todo/view", view);
+router.get("/todo/view/:uid", view);
 // router.get("/todo/view/:id", view);
 
 module.exports = router;

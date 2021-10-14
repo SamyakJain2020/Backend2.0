@@ -13,10 +13,42 @@
 
 <body>
     <h1>Dashboard</h1>
-    <h3>Welcome <%= user%> </h3>
-    <button>logout</button>
-    <button>Create Todo</button>
-    <button>View Todo </button>
+    <h3>Welcome <%= user%>
+    </h3>
+    <button id="todo">View Todo (works in postman)</button>
+    <button id="logout">Logout (works in postman)</button>
+
+    <button id="create">Create TODO (works in postman)</button>
+
+    <form action="/api/todo/create" method="post">
+    </form>
+
+
+    <ul>
+        <% if(todos!=null){ %> 
+        <% todos.forEach((todo)=>{ %>
+            <li>
+                <h1>
+                    <%= todo.dataValues.title %>
+                        <h1>
+                <p>
+                    <%= todo.dataValues.desc %>
+                </p>
+            </li>
+            <%})}%>
+    </ul>
+    <script type="text/javascript">
+        console.log("clicked");
+        const uid1 =document.cookie;
+        const uid=uid1.slice(4,40)
+        console.log(uid1);
+        document.getElementById("todo").onclick = function () {
+            location.href = "/api/todo/view/"+uid;
+        };
+        document.getElementById("logout").onclick = function () {
+            location.href = "/api/user/logout";
+        };
+    </script>
 </body>
 
 </html>
