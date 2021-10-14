@@ -11,7 +11,16 @@ const db = {};
 let sequelize;
 if (config.use_env_variable) {
   try{
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    }
+});
     console.log(`DB ${process.env.database} CONNECTED`);
 }
 catch(err){
