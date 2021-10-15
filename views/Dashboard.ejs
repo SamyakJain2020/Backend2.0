@@ -47,22 +47,29 @@
                 <%})}%>
     </ul>
 
-
     <script type="text/javascript">
-        console.log("clicked");
+        var myHeaders = new Headers();
+
         const uid1 = document.cookie;
-        const uid = uid1.slice(4, 40)
-        console.log(uid1);
-        document.getElementById("todo").onclick = function () {
-            location.href = "/api/todo/view/" + uid;
-        };
-        document.getElementById("create").onclick = function () {
-            location.href = "todo";
-        };
+        const uid = uid1.slice(4, 40);
+        const token = uid1.slice(49);
+
+        console.log(`TOKEWN = ${token}`);
+        console.log(`UID1: ${uid1}`);
+        console.log(`Bearer ${token}`);
+
+        myHeaders.append('Authorization', `Bearer ${token}`);
+
         document.getElementById("logout").onclick = function () {
             location.href = "/api/user/logout";
         };
     </script>
+    <!-- document.getElementById("todo").onclick = function () {
+        location.href = "/api/todo/view/" + uid;
+    };
+    document.getElementById("create").onclick = function () {
+        location.href = "todo";
+    }; -->
 </body>
 
 </html>

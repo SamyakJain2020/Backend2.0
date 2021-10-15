@@ -4,6 +4,8 @@ require("dotenv").config({ path: "./config/config.env" });
 
 // Bring in Model
 const User = require("../models/user")(sequelize, Sequelize.DataTypes);
+const Todo = require("../models/todo")(sequelize, Sequelize.DataTypes);
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -21,13 +23,13 @@ exports.signup = async (req, res) => {
         email,
         password,
       });
-      return res.status(200).render("login") ;
+      return res.status(200).render("login");
     } catch (err) {
       console.log(`Error while storing to db, ${err}`);
-      return res.status(500).render("error",{err});
+      return res.status(500).render("error", { err });
     }
   } else {
-    res.status(401).render("register",{message:"INITAIAL CHECKS FAILED"});
+    res.status(401).render("register", { message: "INITAIAL CHECKS FAILED" });
   }
 };
 
@@ -37,7 +39,7 @@ exports.getUserInfo = async (req, res) => {
     res.status(200).json(users);
   } catch (err) {
     console.log(err);
-    res.status(500).render("error",{err});
+    res.status(500).render("error", { err });
   }
 };
 
@@ -54,18 +56,36 @@ exports.signin = async (req, res) => {
         expiresIn: 30 * 60,
         algorithm: "HS256",
       });
-      console.assert(token);
+      
       res.cookie("token", token);
       res.cookie("uid", user._uid);
-      return res.status(202).render("Dashboard",{user:user.name,uid:user._uid,todos:null});
-
+      res.set("Authorization", `Bearer ${token}`);
+      // view code
+      try {
+        const uid = req.cookies.uid;
+        const userId = uid;
+        const user = await User.findOne({ where: { _uid: userId } });
+        const todos = await Todo.findAll({
+          where: {
+            _uid: uid,
+          },
+        });
+        return res.status(200).render("Dashboard", {
+          user: user.name,
+          uid: user.uid,
+          todos: todos,
+        });
+      } catch (err) {
+        console.log(`Error while storing to db, ${err}`);
+        return res.status(500).render("error", { err });
+      }
+      // view code ends
     } else {
       return res.status(401).render("unauthrised");
     }
   } catch (err) {
     console.log(`Error while finding in DB ${err}`);
-    res.status(500).render("error",{err});
-
+    res.status(500).render("error", { err });
   }
 };
 

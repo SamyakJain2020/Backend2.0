@@ -9,6 +9,7 @@ const { signin, signout, signup, getUserInfo,deleteUser } = require("../controll
 router.post("/user/signup", signup);
 router.post("/user/signin", signin);
 router.get("/user/viewall", getUserInfo);
+router.get("/user/logout", signout);
 
 
 module.exports = router;

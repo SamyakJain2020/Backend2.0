@@ -10,5 +10,20 @@
     <h1>User Is Unauthorized</h1>
     <a href="/user/signin"> Login in here</a>
     <a href="/"> Register in here</a>
+
+    <script>
+        var myHeaders = new Headers();
+
+        const uid1 = document.cookie;
+        const uid = uid1.slice(4, 40);
+        const token = uid1.slice(49);
+
+        console.log(`TOKEWN = ${token}`);
+        console.log(`UID1: ${uid1}`);
+        console.log(`Bearer ${token}`);
+        myHeaders.get('Authorization');
+        myHeaders.append('Authorization', `Bearer ${token}`);
+
+    </script>
 </body>
 </html>
