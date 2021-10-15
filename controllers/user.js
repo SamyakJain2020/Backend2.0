@@ -57,7 +57,6 @@ exports.signin = async (req, res) => {
       console.assert(token);
       res.cookie("token", token);
       res.cookie("uid", user._uid);
-      req.headers['someHeader'] = 'someValue';
       return res.status(202).render("Dashboard",{user:user.name,uid:user._uid,todos:null});
 
     } else {

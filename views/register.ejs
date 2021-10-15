@@ -9,9 +9,11 @@
         integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Register</title>
+    <%- include('../public/dash.css'); %>
 </head>
 
 <body>
+    <center>
     <h1>Register</h1>
     <ul>
         <if(type of message != NULL )>
@@ -36,6 +38,7 @@
     <button type="reset" style="background-color: rgb(230, 106, 106);">Reset FORM</button>
 </form>
     <a href="/user/signin"> already Registeder? Login in here</a>
+</center>
 </body>
 
 </html>

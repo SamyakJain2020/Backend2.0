@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({User}) {
+    static associate() {
       // define association here
       // this.belongsTo(User,{
       //   foreignKey:'_uid'
       // });
     }
     toJSON() {
-      return { ...this.get(), _uid: undefined, _Tid: undefined };
+      return { ...this.get(), _uid: undefined , createdAt:undefined ,updatedAt:undefined };
     }
   };
   Todo.init({
